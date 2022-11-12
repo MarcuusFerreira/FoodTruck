@@ -1,0 +1,30 @@
+package model.bo;
+
+import java.util.ArrayList;
+
+import model.dao.UsuarioDAO;
+import model.vo.TipoUsuarioVO;
+import model.vo.UsuarioVO;
+
+public class UsuarioBO {
+
+	public UsuarioVO realizarLoginBO(UsuarioVO usuarioVO) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		return usuarioDAO.realizarLoginDAO(usuarioVO);
+	}
+
+	public ArrayList<TipoUsuarioVO> consultarTipoUsuarioBO() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		return usuarioDAO.consultarTipoUsuarioDAO();
+	}
+
+	public UsuarioVO cadastrarUsuarioBO(UsuarioVO usuarioVO) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		if(usuarioDAO.verificarExistenciaRegistroPorCpfDAO(usuarioVO)) {
+			System.out.println("\nUsuario já cadastrado na base de dados");
+		} else {
+			usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
+		}
+		return usuarioVO;
+	}
+}
