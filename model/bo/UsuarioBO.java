@@ -27,4 +27,52 @@ public class UsuarioBO {
 		}
 		return usuarioVO;
 	}
+
+	public boolean excluirUsuarioBO(UsuarioVO usuarioVO) {
+		boolean resultado = false;
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		if(usuarioDAO.verificarExistenciaRegistroPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
+			if(usuarioDAO.verificarDesligamentoUsuarioPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
+				System.out.println("\nUsuario já se encontra desligado na base de dados!");
+			} else {
+				resultado = usuarioDAO.excluirUsuarioDAO(usuarioVO);
+			}
+		} else {
+			System.out.println("\nUsuario não existena base de dados");
+		}
+		return resultado;
+	}
+
+	public boolean atualizarUsuarioBO(UsuarioVO usuarioVO) {
+		boolean resultado = false;
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		if(usuarioDAO.verificarExistenciaRegistroPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
+			if(usuarioDAO.verificarDesligamentoUsuarioPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
+				System.out.println("\nUsuario já se encontra desligado na base de dados!");
+			} else {
+				resultado = usuarioDAO.atualizarUsuarioDAO(usuarioVO);
+			}
+		} else {
+			System.out.println("\nUsuario não existena base de dados");
+		}
+		return resultado;
+	}
+
+	public ArrayList<UsuarioVO> consultarTodosUsuariosBO() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		ArrayList<UsuarioVO> listaUsuarioVO = usuarioDAO.consultarTodosUsuariosDAO();
+		if(listaUsuarioVO.isEmpty()) {
+			System.out.println("\nLista de usuários está vazia!");
+		}
+		return listaUsuarioVO;
+	}
+
+	public UsuarioVO consultarUsuarioBO(UsuarioVO usuarioVO) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		UsuarioVO usuario = usuarioDAO.consultarUsuarioDAO(usuarioVO);
+		if(usuario == null) {
+			System.out.println("Usuário não localizado!");
+		}
+		return usuario;
+	}
 }
